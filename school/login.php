@@ -80,7 +80,7 @@
                 header("Location: studentprofile.php");
                 exit();
             } else {
-                echo "xdd";
+                echo "xddsss";
             }
 
         }
