@@ -1,0 +1,74 @@
+header {
+    background-color: white;
+    color: #79031D;
+    font-family: Verdana, Arial, sans-serif;
+    position: sticky;
+    top: 0;
+    height: 110px;
+}
+
+body {
+    margin: 0;
+}
+
+.MainNav {
+    padding: 30px;
+}
+
+.Nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.Nav li {
+    float: right;
+    border-right: 1px solid rgb(90, 0, 0);
+}
+
+.Nav li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.Nav li a:hover {
+    background-color: red;
+}
+
+.logo {
+    position: absolute;
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.officediv {
+    height: 600px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.officedivleft {
+    width: 50%;
+    height: 590px;
+    float: left;
+    overflow: hidden;
+}
+
+/* TO BE FIXED */
+.officedivleft h1,
+.officedivright h1 {
+    margin: 5px;
+    font-size: 35px;
+}
+
+.officedivright {
+    width: 49%;
+    height: 590px;
+    float: left;
+    overflow: hidden;
+}

@@ -1,0 +1,72 @@
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #368574;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+body {
+  background-color: #f0f0f0;
+}
+
+.accountName {
+  height: 20%;
+  color: #f1f1f1;
+}
+
+.aName {
+  width: 50%;
+  float: left;
+}
+
+.aName p {
+  margin-top: -10px;
+  font-size: 20px;
+}
+
+.sidenav a {
+  padding: 15px 8px 15px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #bad5cf;
+  display: block;
+  margin-top: 7px;
+}
+
+.sidenav a:hover {
+  color: #000000;
+  background-color: #8ab8ae;
+}
+
+.sidenav a.active {
+  color: #000000;
+  background-color: #8ab8ae;
+}
+
+
+.main {
+  margin-left: 21%;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+#logoutbutton {
+  background-color: #368574;
+  border: none;
+  padding: 15px 100% 15px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #bad5cf;
+  display: block;
+  margin-top: 7px;
+}
+
+#logoutbutton:hover {
+  color: #000000;
+  background-color: #8ab8ae;
+}

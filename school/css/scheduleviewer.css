@@ -1,0 +1,32 @@
+.main h1 {
+    font-size: 40px;
+    margin-left: 30px;
+}
+
+.schoolyear p {
+    margin-bottom: 0;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.schedulepanel .row {
+    text-align: center;
+}
+
+
+.schedulepanel .col {
+    border-right: dashed;
+    border-color: #ffffff;
+}
+
+.schedulepanel {
+    margin-top: 50px;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: #d9d9d9;
+    border-color: #ffffff;
+}

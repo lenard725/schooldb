@@ -1,0 +1,15 @@
+.teacherinfo {
+    margin-left: 30px;
+}
+
+.teacherinfo h1 {
+    margin-bottom: 0px;
+}
+
+.teacherinfo p {
+    font-size: 18px;
+}
+
+.mainleft {
+    width: 65%;
+}

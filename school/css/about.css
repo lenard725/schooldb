@@ -1,0 +1,173 @@
+header {
+    background-color: white;
+    color: #79031D;
+    font-family: Verdana, Arial, sans-serif;
+    position: sticky;
+    top: 0;
+    height: 110px;
+}
+
+body {
+    margin: 0;
+}
+
+.MainNav {
+    padding: 30px;
+}
+
+.Nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.Nav li {
+    float: right;
+    border-right: 1px solid rgb(90, 0, 0);
+}
+
+.Nav li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.Nav li a:hover {
+    background-color: red;
+}
+
+.logo {
+    position: absolute;
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.aboutheader {
+    height: 600px;
+    margin-bottom: 100px;
+}
+
+
+.missionvision {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 100px;
+}
+
+.history div img {
+    display: block;
+    margin: auto;
+}
+
+.builddiv {
+    border-top: solid;
+    overflow: hidden;
+    width: 96%;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.builddiv .imaage {
+    height: 300px;
+    width: 450px;
+    float: left;
+    overflow: hidden;
+    margin-left: 2%;
+    transition: transform .2s;
+}
+
+.builddiv .imaage:hover {
+    transform: scale(1.4);
+}
+
+.oStudents {
+    width: 22%;
+    float: left;
+    overflow: hidden;
+    margin-left: 39px;
+    margin-top: 10px;
+}
+
+
+
+
+#OSimg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.OSname {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+
+.oStudents:hover #OSimg {
+    opacity: 0.7;
+}
+
+.oStudents:hover .OSname {
+    opacity: 1;
+    position: relative;
+}
+
+.sName {
+    margin-top: -30px;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* faculty */
+
+.oFaculty {
+    width: 22%;
+    float: left;
+    overflow: hidden;
+    margin-left: 39px;
+    margin-top: 10px;
+}
+
+#OFimg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.OFname {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+
+.oFaculty:hover #OFimg {
+    opacity: 0.7;
+}
+
+.oFaculty:hover .OFname {
+    opacity: 1;
+    position: relative;
+}
+
+.fName {
+    margin-top: -30px;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+}

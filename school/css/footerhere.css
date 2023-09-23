@@ -1,0 +1,63 @@
+footer {
+    margin-top: 50px;
+    height: 270px;
+    background-color: #11468F;
+}
+
+.schoolNameLogo {
+    height: 200px;
+    width: 70%;
+    padding-top: 50px;
+    padding-left: 12%;
+    float: left;
+    overflow: hidden;
+}
+
+.schoolNameLogo .schoolLogo {
+    float: left;
+    margin-right: 20px;
+}
+
+.schoolNameLogo .schoolName {
+    color: white;
+    overflow: hidden;
+}
+
+.schoolName h1 {
+    margin-top: 5px;
+    font-size: 40px;
+}
+
+.schoolName p {
+    font-size: 20px;
+}
+
+.contactList {
+    width: 30%;
+    float: right;
+    overflow: hidden;
+    padding-left: 60px;
+    padding-top: 50px;
+}
+
+.contactList ul li {
+    height: 40px;
+}
+
+.contactList ul li p {
+    color: white;
+    display: inline-block;
+    text-align: right;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.contactList ul li img {
+    float: left;
+}
+
+.footercopyright {
+    color: white;
+    padding-left: 12%;
+    width: 70%;
+}

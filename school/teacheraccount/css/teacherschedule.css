@@ -1,0 +1,88 @@
+.sidenav {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #11468f;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.accountName {
+    height: 20%;
+    color: #f1f1f1;
+}
+
+.aName {
+    width: 50%;
+    float: left;
+}
+
+.aName p {
+    margin-top: -15px;
+    font-size: 15px;
+}
+
+.sidenav a {
+    padding: 15px 8px 15px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #b5c6dc;
+    display: block;
+    margin-top: 7px;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    background-color: #7594be;
+}
+
+.sidenav a.active {
+    color: #f1f1f1;
+    background-color: #7594be;
+}
+
+
+body {
+    background-color: #f0f0f0;
+}
+
+.main {
+    margin-left: 20%;
+    padding-top: 20px;
+}
+
+.main h1 {
+    font-size: 40px;
+    margin-left: 30px;
+}
+
+.schoolyear p {
+    margin-bottom: 0;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.schedulepanel .row {
+    text-align: center;
+}
+
+
+.schedulepanel .col {
+    border-right: dashed;
+    border-color: #ffffff;
+}
+
+.schedulepanel {
+    margin-top: 50px;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: #d9d9d9;
+    border-color: #ffffff;
+}

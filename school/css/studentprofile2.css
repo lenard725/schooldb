@@ -1,0 +1,15 @@
+.studentinfo {
+    margin-left: 30px;
+}
+
+.studentinfo h1 {
+    margin-top: 20px;
+}
+
+.studentinfo p {
+    font-size: 18px;
+}
+
+.mainleft {
+    width: 65%;
+}
