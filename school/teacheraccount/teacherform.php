@@ -59,22 +59,23 @@ $col = $db->FormsDB;
     </div>
 
     <div class="main">
-        <div class="col">
-            <select name="formtype" id="section">
-                <option value="Leave Form">Leave Form</option>
-                <option value="">X</option>
-                <option value="">X</option>
-                <option value="">X</option>
-                <option value="">X</option>
-
-
-
-            </select>
-        </div>
-
-        <div class="forms">
+        <form action="teacherform.php" method="post">
             <div class="col">
-                <form action="teacherform.php" method="post">
+                <select name="formtype" id="section">
+                    <option value="Leave Form">Leave Form</option>
+                    <option value="">X</option>
+                    <option value="">X</option>
+                    <option value="">X</option>
+                    <option value="">X</option>
+
+
+
+                </select>
+            </div>
+
+            <div class="forms">
+                <div class="col">
+
                     <div class="row">
                         <label for="Name">Name</label><br>
                         <input type="text" id="name" name="name" placeholder="Enter Your Name"><br>
@@ -99,12 +100,12 @@ $col = $db->FormsDB;
 
                     </div>
                     <input type="submit" name="submit" value="REQUEST">
-                </form>
+
+
+                </div>
 
             </div>
-
-        </div>
-
+        </form>
 
 
     </div>
@@ -117,7 +118,8 @@ $col = $db->FormsDB;
             "name" => $_POST['name'],
             "reason" => $_POST['reason'],
             "datestart" => $_POST['datestart'],
-            "dateend" => $_POST['dateend']
+            "dateend" => $_POST['dateend'],
+            "role" => $_SESSION["sessionaccounttype"]
         );
 
         $col->insertOne($document);
