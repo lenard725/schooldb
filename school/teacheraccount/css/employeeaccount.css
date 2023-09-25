@@ -27,7 +27,7 @@ select {
 
 }
 
-.thead tr th{
+.thead tr th {
     background-color: #FF0;
 }
 
@@ -101,4 +101,9 @@ button[type=submit] {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#hyperlinkoff {
+    text-decoration: none;
+    color: black;
 }
