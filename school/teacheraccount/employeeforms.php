@@ -9,7 +9,8 @@ if (!$_SESSION["log2authentication"]) {
     exit();
 }
 
-$con = new MongoDB\Client("mongodb://localhost:27017");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
@@ -28,7 +29,7 @@ $col = $db->FormsDB;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/sidenav.css">
-    <link rel="stylesheet" href="./css/employeeforms.css">
+    <link rel="stylesheet" href="./css/employeeforms.css?<?php echo time() ?>">
 
 </head>
 
@@ -61,14 +62,16 @@ $col = $db->FormsDB;
     <div class="main">
 
         <div class="mainselect">
+
+
+
             <form method="post">
-                <select name="role" id="role" onchange="this.form.submit()">
+                <select name="type" id="role" onchange="this.form.submit()">
                     <option value="all">All </option>
-                    <option value="teacher" <?php if (isset($_POST['role'])) if ($_POST['role'] == "teacher") { ?>
-                                selected <?php } ?>>Teacher</option>
-                    <option value="student" <?php if (isset($_POST['role'])) if ($_POST['role'] == "student") { ?>
-                                selected <?php } ?>>Student
-                    </option>
+                    <option value="Form 137" <?php if (isset($_POST['type'])) if ($_POST['type'] == "Form 137") { ?>
+                                selected <?php } ?>>Form 137</option>
+                    <option value="Good Moral" <?php if (isset($_POST['type'])) if ($_POST['type'] == "Good Moral") { ?>
+                                selected <?php } ?>>Good Moral</option>
 
                 </select>
             </form>
@@ -80,29 +83,65 @@ $col = $db->FormsDB;
 
 
         foreach ($findform as $foundform) {
-            $storedrole = $foundform['role'];
+            $storedrole = $foundform['type'];
 
-            if (isset($_POST['role']) && $_POST['role'] != "all") {
-                if ($storedrole == $_POST['role']) {
-                    echo "<div class='requestbar'>
-                    <p>[" . $foundform['name'] . "] " . $foundform['type'] . "</p> 
-                    </div>";
+            if (isset($_POST['type']) && $_POST['type'] != "all") {
+                if ($storedrole == $_POST['type']) {
+
+                    ?>
+                    <form action="employeeforms.php" method="POST">
+                        <?php
+
+
+                        echo "<div class='requestbar'>
+                        <p>[" . $foundform['name'] . "] " . $foundform['type'] . "</p>";
+
+                        ?>
+                        <input type="submit" id="approvebtn" name="approve" value="approve">
+                        <input type="submit" id="declinebtn" name="decline" value="decline">
+                        <?php
+                        echo "</div>";
+                        echo "</form>";
+
+
 
                 }
             } else {
+                echo "<form action='employeeforms.php?tempid={$foundform['name']}' method='POST'>";
                 echo "<div class='requestbar'>
-                    <p>[" . $foundform['name'] . "] " . $foundform['type'] . " - " . $foundform['role'] . "</p> 
-                    </div>";
+                    <p>[" . $foundform['name'] . "] " . $foundform['type'] . "</p>";
+
+                //echo "<input type='hidden' name='tempid' value='" . $foundform['_id'] . "'>";
+
+                ?>
+                    <input type="submit" id="approvebtn" name="approve" value="approve">
+                    <input type="submit" id="declinebtn" name="decline" value="decline">
+                    <?php
+                    echo "</div>";
+                    echo "</form>";
             }
         }
         ?>
 
 
 
-        <!-- <div class="requestbar">
+            <!-- <div class="requestbar">
             <p>[Insert name] Requests for Form 137</p>
         </div> -->
     </div>
 </body>
+
+<?php
+
+if (isset($_POST['approve'])) {
+    $col->deleteOne(
+        ['name' => $_GET['tempid']]
+    );
+}
+
+?>
+
+
+
 
 </html>

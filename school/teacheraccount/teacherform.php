@@ -9,12 +9,13 @@ if (!$_SESSION["log2authentication"]) {
     exit();
 }
 
-$con = new MongoDB\Client("mongodb://localhost:27017");
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
 $col = $db->FormsDB;
-//echo "Collection TeacherAccount Selected";
+//echo "Collection FormsDB Selected";
 
 ?> <!-- initial code for current login info -->
 

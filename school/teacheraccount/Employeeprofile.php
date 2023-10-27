@@ -9,7 +9,8 @@ if (!$_SESSION["log2authentication"]) {
   exit();
 }
 
-$con = new MongoDB\Client("mongodb://localhost:27017");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
@@ -47,9 +48,9 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
     </div>
 
     <a href="./Employeeprofile.php" class="active">Profile</a>
-    <a href="./employeeaccount.html">Accounts</a>
-    <a href="./employeeenroll.html">Enroll Students</a>
-    <a href="./employeerecords.html">Records</a>
+    <a href="./employeeaccount.php">Accounts</a>
+    <a href="./employeeenroll.php">Enroll Students</a>
+    <a href="./employeerecords.php">Records</a>
     <a href="./employeeforms.php">Forms</a>
 
     <form action="Employeeprofile.php" method="post">

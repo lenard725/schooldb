@@ -9,7 +9,8 @@ if (!$_SESSION["log2authentication"]) {
   exit();
 }
 
-$con = new MongoDB\Client("mongodb://localhost:27017");
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
@@ -47,7 +48,7 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
       </div>
     </div>
 
-    <a href="./teacherprofile.html" class="active">Profile</a>
+    <a href="./teacherprofile.php" class="active">Profile</a>
     <a href="./teacherclass.html">Class</a>
     <a href="./teacherschedule.html">Schedule Viewer</a>
     <a href="./teacherform.php">Forms</a>
@@ -72,9 +73,6 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
           if ($_SESSION["thissessionemail"] == $founduser['email']) {
 
             echo "<h1 id='teachername'>" . $founduser['name'] . "</h1>";
-            echo "<p>Grade Level: " . $founduser['gradelevel'] . "</p>";
-            echo "<p>ID Number: " . $founduser['idnumber'] . "</p>";
-            echo "<p>Section: " . $founduser['section'] . "</p>";
             echo "<p>Email: " . $_SESSION["thissessionemail"] . "</p>";
 
             echo "<h2>Emergency Contact: </h2>";

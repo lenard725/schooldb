@@ -1,5 +1,6 @@
 <?php
- session_start();
+session_start();
+global $con;
 ?>
 
 
@@ -54,7 +55,8 @@
 
 
     if (isset($_POST['submit'])) {
-        $con = new MongoDB\Client("mongodb://localhost:27017");
+        // $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+        $con = new MongoDB\Client("mongodb://localhost:27017/");
         //echo "Connection to database successfully";
         $db = $con->SchoolDB;
         //echo "Database SchoolDB selected";
@@ -73,6 +75,7 @@
 
 
                 $_SESSION["thissessionname"] = $founduser['name'];
+                $_SESSION["thissessionidnumber"] = $founduser['idnumber'];
                 $_SESSION["thissessionsection"] = $founduser['gradelevel'] . " - " . $founduser['section'];
                 $_SESSION["thissessionemail"] = $postedemail;
                 $_SESSION["log1authentication"] = 1;

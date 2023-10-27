@@ -1,3 +1,25 @@
+<?php
+
+session_start();
+
+require '../../vendor/autoload.php';
+
+if (!$_SESSION["log2authentication"]) {
+    header("Location: ../login2.php");
+    exit();
+}
+
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
+//echo "Connection to database successfully";
+$db = $con->SchoolDB;
+//echo "Database SchoolDB selected";
+$col = $db->TeacherAccount;
+//echo "Collection TeacherAccount Selected";
+$finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
+
+?> <!-- initial code for current login info -->
+
 <!DOCTYPE html>
 <html>
 
@@ -28,6 +50,10 @@
         <a href="./teacherschedule.html">Schedule Viewer</a>
         <a href="./teacherform.html">Forms</a>
         <a href="./teacherencode.html" class="active">Encode Grade</a>
+
+        <form action="teacherprofile.php" method="post">
+            <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
+        </form>
 
     </div>
 

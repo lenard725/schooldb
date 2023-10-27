@@ -1,3 +1,20 @@
+<?php
+
+session_start();
+
+require './../vendor/autoload.php';
+
+// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+$con = new MongoDB\Client("mongodb://localhost:27017/");
+//echo "Connection to database successfully";
+$db = $con->SchoolDB;
+//echo "Database SchoolDB selected";
+$col = $db->FormsDB;
+//echo "Collection FormsDB Selected";
+
+?> <!-- initial code for current login info -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +38,7 @@
         <div class="MainNav">
             <ul class="Nav">
                 <li><a href="./contacts.html">Contact us</a></li>
-                <li><a href="./forms.html">Form Request</a></li>
+                <li><a href="./forms.php">Form Request</a></li>
                 <li><a href="./offices.html">Offices</a></li>
                 <li><a href="./about.html">About</a></li>
                 <li><a href="./home.html">Home</a></li>
@@ -33,61 +50,39 @@
         <h1>Forms</h1>
         <p>Important Forms and Documents</p>
 
-
-
         <div class="formdiv">
-            <form action="">
+
+            <h2>Request for Form137</h2>
+            <form action="forms.php" method="POST">
+                <label for="Name">LRN</label><br>
+                <input type="text" id="Name" name="lrn" placeholder="Enter Your LRN"><br>
                 <label for="Name">Name</label><br>
-                <input type="text" id="Name" name="fullname" placeholder="Enter Your Name"><br>
-
-                <label for="Birthday">Birthday</label><br>
-
-                <input type="text" id="Month" name="Birthday" placeholder="Month">
-                <input type="text" id="Day" name="Birthday" placeholder="Day">
-                <input type="text" id="Year" name="Birthday" placeholder="Year"><br>
-
+                <input type="text" id="Name" name="name" placeholder="Enter Your Name"><br>
 
                 <label for="address">Adresss</label><br>
                 <input type="text" id="address" name="address" placeholder="Enter Address"><br>
 
-
-
-                <input type="submit" value="Submit">
+                <input type="submit" name="submit" value="Submit">
             </form>
         </div>
 
         <div class="formdiv">
-            <form action="">
+            <h2>Request for Good Moral</h2>
+            <form action="forms.php" method="POST">
+                <label for="Name">LRN</label><br>
+                <input type="text" id="Name" name="lrn" placeholder="Enter Your LRN"><br>
                 <label for="Name">Name</label><br>
-                <input type="text" id="Name" name="fullname" placeholder="Enter Your Name"><br>
-
-                <label for="Birthday">Birthday</label><br>
-
-                <input type="text" id="Month" name="Birthday" placeholder="Month">
-                <input type="text" id="Day" name="Birthday" placeholder="Day">
-                <input type="text" id="Year" name="Birthday" placeholder="Year"><br>
-
+                <input type="text" id="Name" name="name" placeholder="Enter Your Name"><br>
 
                 <label for="address">Adresss</label><br>
                 <input type="text" id="address" name="address" placeholder="Enter Address"><br>
 
 
 
-                <input type="submit" value="Submit">
+                <input type="submit" name="submit2" value="Submit">
             </form>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
     <!-- BEYOND HERE IS FOOTER -->
@@ -130,5 +125,37 @@
 
     </footer>
 </body>
+
+
+<?php
+
+if (isset($_POST['submit'])) {
+    $document = array(
+        "type" => "Form 137",
+        "lrn" => $_POST['lrn'],
+        "name" => $_POST['name'],
+        "address" => $_POST['address'],
+    );
+    $col ->insertOne($document);
+
+    echo "<script>alert('success')</script>";
+}
+
+if (isset($_POST['submit2'])) {
+    $document = array(
+        "type" => "Good Moral",
+        "lrn" => $_POST['lrn'],
+        "name" => $_POST['name'],
+        "address" => $_POST['address'],
+    );
+    $col ->insertOne($document);
+
+    echo "<script>alert('success')</script>";
+}
+
+
+?>
+
+
 
 </html>
