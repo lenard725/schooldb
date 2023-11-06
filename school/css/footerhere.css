@@ -1,7 +1,7 @@
 footer {
     margin-top: 50px;
     height: 270px;
-    background-color: #11468F;
+    background-color: #FFFF00;
 }
 
 .schoolNameLogo {
@@ -19,7 +19,7 @@ footer {
 }
 
 .schoolNameLogo .schoolName {
-    color: white;
+    color: black;
     overflow: hidden;
 }
 
@@ -45,7 +45,7 @@ footer {
 }
 
 .contactList ul li p {
-    color: white;
+    color: black;
     display: inline-block;
     text-align: right;
     margin-left: 10px;
@@ -57,7 +57,7 @@ footer {
 }
 
 .footercopyright {
-    color: white;
+    color: black;
     padding-left: 12%;
     width: 70%;
 }

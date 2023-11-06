@@ -4,8 +4,8 @@ session_start();
 
 require './../vendor/autoload.php';
 
-// $con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
-$con = new MongoDB\Client("mongodb://localhost:27017/");
+$con = new MongoDB\Client("mongodb+srv://jeraziahm725:lenard725@cluster0.cgnztuo.mongodb.net/");
+// $con = new MongoDB\Client("mongodb://localhost:27017/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
@@ -33,11 +33,12 @@ $col = $db->FormsDB;
 <body>
     <header>
         <div class="logo">
-            <a href="./index.html"><img src="./img/logo.jpg" alt="Logo" height="100px" width="100px"></a>
+            <a href="../index.html"><img src="./img/a/school logo png.png" alt="Logo" height="86px" width="86px"></a>
         </div>
         <div class="MainNav">
             <ul class="Nav">
-                <li><a href="./contacts.html">Contact us</a></li>
+                <li style="background-color: yellow;"><a href="./login2.php">Login</a></li>
+                <li><a href="./contacts.php">Contact us</a></li>
                 <li><a href="./forms.php">Form Request</a></li>
                 <li><a href="./offices.html">Offices</a></li>
                 <li><a href="./about.html">About</a></li>
@@ -47,8 +48,10 @@ $col = $db->FormsDB;
     </header>
 
     <div>
-        <h1>Forms</h1>
-        <p>Important Forms and Documents</p>
+        <div class="title">
+            <p class="text">Form Request </p>
+
+        </div>
 
         <div class="formdiv">
 

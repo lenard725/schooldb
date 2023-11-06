@@ -16,10 +16,11 @@
 <body>
     <header>
         <div class="logo">
-            <a href="./index.html"><img src="./img/logo.jpg" alt="Logo" height="100px" width="100px"></a>
+            <a href="../index.html"><img src="./img/a/school logo png.png" alt="Logo" height="86px" width="86px"></a>
         </div>
         <div class="MainNav">
             <ul class="Nav">
+                <li style="background-color: yellow;"><a href="./login2.php">Login</a></li>
                 <li><a href="./contacts.html">Contact us</a></li>
                 <li><a href="./forms.php">Form Request</a></li>
                 <li><a href="./offices.html">Offices</a></li>
@@ -31,10 +32,11 @@
 
 
     <div class="contacts">
-        <div>
-            <h1>Contact</h1>
-            <p>Send an Email</p>
-        </div>
+        <br>
+
+        <h1>Contact</h1>
+        <p>Send an Email</p>
+
 
         <div>
             <h2>Directory</h2>
@@ -72,6 +74,8 @@
         <div>
             <h2>School Map</h2>
             <p>Sta. Juliana High School Capas, Tarlac</p>
+            <br>
+            <br>
 
             <div style="width: 80%;" class="map">
                 <img src="./img/a/School Map.png" alt="Logo" height="500px" width="100%">
@@ -80,14 +84,14 @@
         </div>
 
         <div class="formdiv">
-            <form action="">
+            <form action='contacts.php' method='POST'>
                 <label for="Name">Name</label><br>
-                <input type="text" id="Name" name="fullname" placeholder="First Name">
-                <input type="text" id="Name" name="fullname" placeholder="Last Name"><br>
+                <input type="text" id="Name" name="Fname" placeholder="First Name">
+                <input type="text" id="Name" name="Lname" placeholder="Last Name"><br>
 
                 <label for="Email">Email</label><br>
 
-                <input type="text" id="Email" name="Email" placeholder="">
+                <input type="text" id="Email" name="sender" placeholder="Enter Email">
 
 
                 <label for="inquiry">Inquiry</label><br>
@@ -95,7 +99,7 @@
 
 
 
-                <input type="submit" value="Submit">
+                <input type="submit" name='submit' value="Submit">
             </form>
         </div>
 
@@ -143,5 +147,20 @@
 
 
 </body>
+
+<?php
+if (isset($_POST['submit'])) {
+
+    $to = "jeraziahm@gmail.com";
+
+    $subject = "Website Inquiry";
+
+    $messagehere = $_POST['inquiry'];
+
+    $headers = "From: {$_POST['sender']}";
+
+    mail($to, $subject, $messagehere, $headers);
+}
+?>
 
 </html>

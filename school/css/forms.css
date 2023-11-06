@@ -1,10 +1,11 @@
 header {
-    background-color: white;
-    color: #79031D;
+    background-color: #368574;
+    color: white;
     font-family: Verdana, Arial, sans-serif;
     position: sticky;
     top: 0;
-    height: 110px;
+    height: 95px;
+
 }
 
 body {
@@ -36,7 +37,7 @@ body {
 }
 
 .Nav li a:hover {
-    background-color: red;
+    background-color: rgba(255, 255, 255, 0.393);
 }
 
 .logo {
@@ -46,7 +47,13 @@ body {
     margin-top: 5px;
 }
 
-
+.title .text{
+    font-size: 40px;
+    font-weight: 500;
+    color: #000;
+    text-align: left;
+    margin-left: 380px;
+}
 
 input[type=text]{
     width: 100%;
@@ -89,5 +96,15 @@ input[type=submit]:hover {
     padding: 30px;
     width: 50%;
     margin: 80px auto 0 auto;
+    margin-top: 50px;
 }
+
+.request-for-form {
+    font-size: 25px;
+    display: inline-block;
+    color: #000;
+    text-align: left;
+    width: 389px;
+}
+
 
