@@ -131,24 +131,26 @@ $col = $db->FormsDB;
 
 if (isset($_POST['submit'])) {
     $document = array(
+        'uniquedescription' => "Form137-" . $_POST['lrn'] . "-" . date("Y/m/d") . "-" . time(),
         "type" => "Form 137",
         "lrn" => $_POST['lrn'],
         "name" => $_POST['name'],
         "address" => $_POST['address'],
     );
-    $col ->insertOne($document);
+    $col->insertOne($document);
 
     echo "<script>alert('success')</script>";
 }
 
 if (isset($_POST['submit2'])) {
     $document = array(
+        'uniquedescription' => "GoodMoral-" . $_POST['lrn'] . "-" . date("Y/m/d") . "-" . time(),
         "type" => "Good Moral",
         "lrn" => $_POST['lrn'],
         "name" => $_POST['name'],
         "address" => $_POST['address'],
     );
-    $col ->insertOne($document);
+    $col->insertOne($document);
 
     echo "<script>alert('success')</script>";
 }

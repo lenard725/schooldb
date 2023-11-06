@@ -41,7 +41,7 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
     <title>TBD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/sidenav.css">
+    <link rel="stylesheet" href="../css/sidenav.css?<?php echo time() ?>">
     <link rel="stylesheet" href="./css/accountedit.css?<?php echo time() ?>">
 </head>
 
@@ -54,7 +54,7 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
             </div>
 
             <div class="aName">
-                <h1>Name</h1>
+            <h3><?php echo $_SESSION["thissessionname"]; ?></h3>
                 <p>Admin</p>
             </div>
         </div>
@@ -62,8 +62,11 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
         <a href="./Employeeprofile.php">Profile</a>
         <a href="./employeeaccount.php" class="active">Accounts</a>
         <a href="./employeeenroll.php">Enroll Students</a>
+        <a href="./employeesection.php">Sections</a>
+        <a href="./employeeaddschedule.php">Class Schedules</a>
+        <a href="./employeeforms.php">Forms</a>
         <a href="./employeerecords.php">Records</a>
-        <a href="">Forms</a>
+
 
         <form action="Employeeprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -185,8 +188,7 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
                     ?>
 
 
-                    <form action='accountedit.php?enumber=<?php echo $_SESSION['edittingnumber'] ?>' method="POST">
-
+                    <form action='accountedit.php?enumber=<?php echo $_SESSION['edittingenumber'] ?>' method="POST">
                         <div class="edithere">
                             <div class="accountdetailsedit">
 
@@ -285,12 +287,11 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
                         </div>
 
                         <div class="row">
-
                             <div class="col">
-                                <input type="submit" name="cancel" value="Cancel">
+                                <input type="submit" name="save2" value="Save">
                             </div>
                             <div class="col">
-                                <input type="submit" name="enroll2" value="Enroll">
+                                <input type="submit" name="delete" value="Delete Account">
                             </div>
                         </div>
                     </form>
@@ -305,7 +306,9 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
 
     <?php
 
-
+    if (isset($_POST['cancel'])) {
+        echo "<script> window.location.href='employeeaccount.php';</script>";
+    }
 
 
 
@@ -348,9 +351,48 @@ $departmentselection = array('Sta Juliana HS', 'Sta Juliana SHS');
                     'Telephone/Cellphone' => $_POST['Telephone/Cellphone'],
                     'occupation' => $_POST['occupation'],
                     'relationship' => $_POST['relationship'],
+                    'password' => $_POST['password'],
                     '4PS' => $fourPs,
                     'IPS' => $IPs,
                     'MTCC' => $MTCC,
+
+
+                ]
+            ]
+
+        );
+
+        echo "<script>alert('success')</script>";
+        echo "<script> window.location.href='employeeaccount.php';</script>";
+
+    }
+
+    if (isset($_POST['save2'])) {
+
+
+
+
+
+        $updatethis = $col->updateOne(
+
+            ['idnumber' => $_GET['enumber']],
+            [
+                '$set' => [
+
+                    "name" => $_POST['name'],
+                    'Address' => $_POST['address'],
+                    'email' => $_POST['email'],
+                    'age' => $_POST['age'],
+                    'sex' => $_POST['sex'],
+                    'password' => $_POST['password'],
+                    'department' => $_POST['department'],
+                    'enumber' => $_POST['enumber'],
+                    'position' => $_POST['position'],
+                    'guardianname' => $_POST['guardianname'],
+                    'guardianemail' => $_POST['guardianemail'],
+                    'Telephone/Cellphone' => $_POST['Telephone/Cellphone'],
+                    'occupation' => $_POST['occupation'],
+                    'relationship' => $_POST['relationship'],
 
 
                 ]

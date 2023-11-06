@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require '../../vendor/autoload.php';
 
 // connect to mongodb
@@ -16,6 +18,13 @@ $col = $db->Enrollcol;
 // echo "Collection Enrollcol Selected";
 $studentcol = $db->StudentAccount;
 // echo "Collection Enrollcol Selected";
+
+$sectioncol = $db->SectionDB;
+
+$findsection = $sectioncol->find();
+
+if (isset($_POST['sections']))
+    $findteachersection = $sectioncol->find(array('sectionname' => $_POST['sections']));
 
 $bucket = $db->selectGridFSBucket();
 
@@ -47,30 +56,9 @@ if (isset($_GET['recordsearch'])) {
 
     }
 
-
-
-
-
 }
 
-if (isset($_POST['enroll'])) {
-    if (!empty($_POST['studentidnumber'])) {
 
-        echo "<script>alert('success')</script>";
-        foreach ($_POST['studentidnumber'] as $listofidnumber) {
-            $updateResult = $studentcol->updateOne(
-                ['idnumber' => $listofidnumber],
-                ['$set' => ['status' => 'Enrolled']]
-
-            );
-
-            $deletethis = $col->deleteOne(
-                ['idnumber' => $listofidnumber]
-            );
-
-        }
-    }
-}
 
 
 ?>
@@ -84,7 +72,7 @@ if (isset($_POST['enroll'])) {
     <title>TBD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/sidenav.css">
+    <link rel="stylesheet" href="../css/sidenav.css?<?php echo time() ?>">
     <link rel="stylesheet" href="./css/employeeenroll.css">
 </head>
 
@@ -97,7 +85,9 @@ if (isset($_POST['enroll'])) {
             </div>
 
             <div class="aName">
-                <h1>Name</h1>
+                <h3>
+                    <?php echo $_SESSION["thissessionname"]; ?>
+                </h3>
                 <p>Admin</p>
             </div>
         </div>
@@ -105,8 +95,10 @@ if (isset($_POST['enroll'])) {
         <a href="./Employeeprofile.php">Profile</a>
         <a href="./employeeaccount.php">Accounts</a>
         <a href="./employeeenroll.php" class="active">Enroll Students</a>
-        <a href="./employeerecords.html">Records</a>
-        <a href="./employeeforms.html">Forms</a>
+        <a href="./employeesection.php">Sections</a>
+        <a href="./employeeaddschedule.php">Class Schedules</a>
+        <a href="./employeeforms.php">Forms</a>
+        <a href="./employeerecords.php">Records</a>
 
         <form action="Employeeprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -117,11 +109,7 @@ if (isset($_POST['enroll'])) {
     <div class="main">
 
         <div class="mainselect">
-            <select name="sections" id="section">
-                <option value="">Section 1</option>
-                <option value="">Section 1</option>
-                <option value="">Section 1</option>
-                <option value="">Section 1</option>
+            <select name="" id="section">
                 <option value="">Section 1</option>
                 <option value="">Section 1</option>
 
@@ -138,7 +126,6 @@ if (isset($_POST['enroll'])) {
                                 <th></th>
                                 <th scope="col">Students Name</th>
                                 <th scope="col">Grade Level</th>
-                                <th scope="col">Teacher</th>
                                 <th scope="col">Section</th>
                                 <th scope="col">Form 138</th>
                             </tr>
@@ -152,9 +139,23 @@ if (isset($_POST['enroll'])) {
                             echo "<tbody>
                         <th><input type='checkbox' name='studentidnumber[]' value='" . $foundenrolllist['idnumber'] . "'></th>
                                 <th scope='row'>" . $foundenrolllist['name'] . "</th>
-                                <td>" . $foundenrolllist['gradelevel'] . "</td>
-                                <td>Teacher</td>
-                                <td>Section</td>
+                                <td>" . $foundenrolllist['gradelevel'] . "</td>";
+
+
+                            echo "</td>";
+                            echo "<td>";
+
+                            echo "<select name='getsections[]' id='section'>";
+
+                            foreach ($findsection as $foundsection) {
+                                if ($foundsection['gradelevel'] == $foundenrolllist['gradelevel']) {
+                                    echo "<option value='" . $foundsection['sectionname'] . "'";
+                                    echo ">" . $foundsection['sectionname'] . "</option>";
+                                }
+                            }
+                            echo "</select>";
+
+                            echo "</td>
                                 <td><a href='employeeenroll.php?recordsearch=" . $foundenrolllist['form138'] . " '>view</a></td>";
 
                         }
@@ -173,6 +174,37 @@ if (isset($_POST['enroll'])) {
 
     </div>
 </body>
+
+<?php
+
+if (isset($_POST['enroll'])) {
+    if (!empty($_POST['studentidnumber'])) {
+
+
+
+        echo "<script>alert('success')</script>";
+        foreach ($_POST['studentidnumber'] as $x => $listofidnumber) {
+
+            $updateResult = $studentcol->updateOne(
+                ['idnumber' => $listofidnumber],
+                [
+                    '$set' => [
+                        'status' => 'Enrolled',
+                        'section' => $_POST['getsections'][$x],
+
+                    ]
+                ]
+
+            );
+
+            $deletethis = $col->deleteOne(
+                ['idnumber' => $listofidnumber]
+            );
+
+        }
+    }
+}
+?>
 
 
 </html>

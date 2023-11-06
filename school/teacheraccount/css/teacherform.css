@@ -80,7 +80,7 @@ select {
 
 }
 
-.forms {
+/* .forms {
     width: 60%;
     display: block;
     margin: 100px auto 20px;
@@ -120,4 +120,44 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #322bf7;
+} */
+
+
+.col a {
+    color: black;
+    text-decoration: none;
+}
+.col a h2{
+    color: black;
+    text-decoration: none;
+}
+
+.col a:hover {
+    color: #00A0C6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 50px;
+}
+.col a:link, .col a:visited {
+    color: black;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+.col {
+    border: solid;
+    margin: 30px;
+    text-align: center;
+}
+
+.row{
+    margin-left: 10%;
+}
+
+.fulllist {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

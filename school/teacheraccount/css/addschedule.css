@@ -1,0 +1,55 @@
+.radio_day {
+    margin: auto;
+    /* margin-top: -178px; */
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 18px;
+}
+
+.form-horizontal .control-group:before,
+.form-horizontal .control-group:after {
+    display: table;
+    content: "";
+}
+
+.form-horizontal .control-group:after {
+    clear: both;
+}
+
+.thumbnails_new_voter {
+    margin-top: -4px;
+    margin-left: 40px;
+    list-style: none;
+}
+
+.thumbnail_new_voter {
+    background-color: white;
+    display: block;
+    margin-left: -40px;
+    width: 470px;
+    padding: 10px;
+    line-height: 2;
+    border: 1px solid #555;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
+}
+
+.hai_naku {
+    margin-left: 260px;
+}
+
+.hero-body-schedule {
+    padding: 15px;
+    margin-bottom: 10px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+
+}
+
+

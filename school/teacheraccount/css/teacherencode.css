@@ -99,3 +99,18 @@ td,
 th {
     text-align: center;
 }
+
+#gradefill {
+    -moz-appearance: textfield;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: center;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

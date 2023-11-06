@@ -22,13 +22,12 @@ $col2 = $db->TeacherAccount;
 $col3 = $db->AdminAccount;
 //echo "Collection AdminAccount Selected";
 
-$finduser1 = $col->find()->toArray();
-$finduser2 = $col2->find()->toArray();
-$finduser3 = $col3->find()->toArray();
+$findstudent = $col->find()->toArray();
+$findteacher = $col2->find()->toArray();
+$findadmin = $col3->find()->toArray();
 
-$merge1 = array_merge($finduser1, $finduser2);
-$finduser = array_merge($merge1, $finduser3);
-
+$arraymerge = array_merge($findstudent, $findteacher);
+$finduser = array_merge($arraymerge, $findadmin);
 
 ?> <!-- initial code for current login info -->
 
@@ -40,7 +39,7 @@ $finduser = array_merge($merge1, $finduser3);
     <title>TBD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/sidenav.css">
+    <link rel="stylesheet" href="../css/sidenav.css?<?php echo time() ?>">
     <link rel="stylesheet" href="./css/employeeaccount.css? <?php echo time() ?>">
 </head>
 
@@ -53,7 +52,9 @@ $finduser = array_merge($merge1, $finduser3);
             </div>
 
             <div class="aName">
-                <h1>Name</h1>
+                <h3>
+                    <?php echo $_SESSION["thissessionname"]; ?>
+                </h3>
                 <p>Admin</p>
             </div>
         </div>
@@ -61,8 +62,11 @@ $finduser = array_merge($merge1, $finduser3);
         <a href="./Employeeprofile.php">Profile</a>
         <a href="./employeeaccount.php" class="active">Accounts</a>
         <a href="./employeeenroll.php">Enroll Students</a>
-        <a href="./employeerecords.php">Records</a>
+        <a href="./employeesection.php">Sections</a>
+        <a href="./employeeaddschedule.php">Class Schedules</a>
         <a href="./employeeforms.php">Forms</a>
+        <a href="./employeerecords.php">Records</a>
+
 
         <form action="Employeeprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -71,8 +75,8 @@ $finduser = array_merge($merge1, $finduser3);
     </div>
 
     <div class="main">
-
-        <div class="mainselect">
+        <h1>Accounts</h1>
+        <!-- <div class="mainselect">
             <select name="sections" id="section">
                 <option value="">Section 1</option>
                 <option value="">Section 1</option>
@@ -80,7 +84,7 @@ $finduser = array_merge($merge1, $finduser3);
                 <option value="">Section 1</option>
 
             </select>
-        </div>
+        </div> -->
 
         <div class="accountssheet">
             <div>
@@ -108,6 +112,9 @@ $finduser = array_merge($merge1, $finduser3);
                             echo "<td>" . $founduser['role'] . "</td>";
                             echo "<td>" . $founduser['email'] . "</td>";
                             echo "<td>" . $founduser['status'] . "</td>";
+
+                            echo "</tr>";
+
                         }
 
                         ?>

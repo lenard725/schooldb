@@ -18,7 +18,8 @@
 
 input[type=text],
 input[type=email],
-input[type=password] {
+input[type=password],
+input[type=number] {
     width: 80%;
     padding: 12px 20px;
     margin: 8px 0 8px 30px;
@@ -28,6 +29,27 @@ input[type=password] {
     box-sizing: border-box;
     background-color: #f0f0f0;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    outline: none;
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0 8px 30px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+
+}
+
 
 .accountdetailsedit h2 {
     text-align: center;

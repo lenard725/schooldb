@@ -15,7 +15,9 @@ $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
 $col = $db->StudentAccount;
 //echo "Collection StudentAccount Selected";
+$subjectcol = $db->schoolsubject;
 $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
+$findsubject = $subjectcol->find(array('gradelevel' => $_SESSION['thissessiongradelevel']))->toArray();
 
 ?> <!-- initial code for current login info -->
 
@@ -41,8 +43,8 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
             </div>
 
             <div class="aName">
-                <h3>Student Name</h3>
-                <p>Grade Level - Section</p>
+                <?php echo "<h3>" . $_SESSION["thissessionname"] . "</h3>" ?>
+                <?php echo "<p>" . $_SESSION['thissessiongradelevel'] . " - " . $_SESSION["thissessionsection"] . "</p>" ?>
             </div>
         </div>
 
@@ -53,6 +55,9 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
         <a href="./clearance.php">Clearance Information</a>
         <a href="./grades.php" class="active">Grades</a>
 
+        <form action="studentprofile.php" method="post">
+            <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
+        </form>
     </div>
 
     <div class="main">
@@ -74,35 +79,40 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
                 </thead>
                 <tbody>
 
-                <?php 
-                
-                foreach($finduser as $founduser){
-                    echo "<tr> <th scope='row'>Math</th>";
-                    echo "<td>" . $founduser['math']['first_grading'] . "</td>";
-                    echo "<td>" . $founduser['math']['second_grading'] . "</td>";
-                    echo "<td>" . $founduser['math']['third_grading'] . "</td>";
-                    echo "<td>" . $founduser['math']['fourth_grading'] . "</td>";
+                    <?php
 
-                    echo "<tr> <th scope='row'>Science</th>";
-                    echo "<td>" . $founduser['science']['first_grading'] . "</td>";
-                    echo "<td>" . $founduser['science']['second_grading'] . "</td>";
-                    echo "<td>" . $founduser['science']['third_grading'] . "</td>";
-                    echo "<td>" . $founduser['science']['fourth_grading'] . "</td>";
+                    foreach ($finduser as $founduser) {
 
-                    echo "<tr> <th scope='row'>Filipino</th>";
-                    echo "<td>" . $founduser['filipino']['first_grading'] . "</td>";
-                    echo "<td>" . $founduser['filipino']['second_grading'] . "</td>";
-                    echo "<td>" . $founduser['filipino']['third_grading'] . "</td>";
-                    echo "<td>" . $founduser['filipino']['fourth_grading'] . "</td>";
+                        foreach ($findsubject as $thissubject) {
 
-                    echo "<tr> <th scope='row'>English</th>";
-                    echo "<td>" . $founduser['english']['first_grading'] . "</td>";
-                    echo "<td>" . $founduser['english']['second_grading'] . "</td>";
-                    echo "<td>" . $founduser['english']['third_grading'] . "</td>";
-                    echo "<td>" . $founduser['english']['fourth_grading'] . "</td>";
-                }
+                            if (isset($founduser[$thissubject['subject']]['first_grading'])) {
+                                echo "<tr> <th scope='row'>{$thissubject['subject']}</th>";
+                                echo "<td>" . $founduser[$thissubject['subject']]['first_grading'] . "</td>";
+                                echo "<td>" . $founduser[$thissubject['subject']]['second_grading'] . "</td>";
+                                echo "<td>" . $founduser[$thissubject['subject']]['third_grading'] . "</td>";
+                                echo "<td>" . $founduser[$thissubject['subject']]['fourth_grading'] . "</td>";
+                                echo "</tr>";
+                            } else {
+                                $updatethis = $col->updateOne(
 
-                ?>
+                                    ['idnumber' => $founduser['idnumber']],
+                                    [
+                                        '$set' => [
+                                            $thissubject['subject'] => [
+                                                'first_grading' => '',
+                                                'second_grading' => '',
+                                                'third_grading' => '',
+                                                'fourth_grading' => '',
+                                            ]
+                                        ]
+                                    ]
+
+                                );
+                            }
+                        }
+                    }
+
+                    ?>
 
                     <!-- <tr>
                         <th scope="row">Math</th>

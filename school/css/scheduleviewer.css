@@ -30,3 +30,7 @@
     background-color: #d9d9d9;
     border-color: #ffffff;
 }
+
+#subjectcol {
+    border-bottom: solid;
+}

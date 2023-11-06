@@ -14,8 +14,11 @@ $con = new MongoDB\Client("mongodb://localhost:27017/");
 //echo "Connection to database successfully";
 $db = $con->SchoolDB;
 //echo "Database SchoolDB selected";
-$col = $db->FormsDB;
+$col = $db->FormCollection;
 //echo "Collection FormsDB Selected";
+
+$findforms = $col->find();
+$bucket = $db->selectGridFSBucket();
 
 ?> <!-- initial code for current login info -->
 
@@ -26,10 +29,11 @@ $col = $db->FormsDB;
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TBD</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?<?php echo time() ?>"
+        rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="./css/teachersidenav.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="./css/teacherform.css">
+    <link rel="stylesheet" href="./css/teacherform.css?<?php echo time(); ?>">
 </head>
 
 <body>
@@ -47,10 +51,10 @@ $col = $db->FormsDB;
         </div>
 
         <a href="./teacherprofile.php">Profile</a>
-        <a href="./teacherclass.html">Class</a>
-        <a href="./teacherschedule.html">Schedule Viewer</a>
+        <a href="./teacherclass.php">Class</a>
+        <a href="./teacherschedule.php">Schedule Viewer</a>
         <a href="./teacherform.php" class="active">Forms</a>
-        <a href="./teacherencode.html">Encode Grade</a>
+        <a href="./teacherencode.php">Encode Grade</a>
 
         <form action="teacherprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -60,76 +64,83 @@ $col = $db->FormsDB;
     </div>
 
     <div class="main">
-        <form action="teacherform.php" method="post">
-            <div class="col">
-                <select name="formtype" id="section">
-                    <option value="Leave Form">Leave Form</option>
-                    <option value="">X</option>
-                    <option value="">X</option>
-                    <option value="">X</option>
-                    <option value="">X</option>
+        <?php
 
+        foreach ($findforms as $foundforms) {
+            echo "
 
-
-                </select>
-            </div>
-
-            <div class="forms">
-                <div class="col">
-
-                    <div class="row">
-                        <label for="Name">Name</label><br>
-                        <input type="text" id="name" name="name" placeholder="Enter Your Name"><br>
+        <div class='fulllist'>
+            <div class='row row-cols-5'>
+                <div class='col'>
+                    <div class='fillerdiv'>
+                    <a href='teacherform.php?recordsearch=" . $foundforms['fillerform'] . " '><h2>Filler Form Download</h2></a> 
                     </div>
-
-                    <div class="row">
-                        <label for="">Reason</label><br>
-                        <input type="text" id="reason" name="reason" placeholder=""><br>
-                    </div>
-
-                    <div class="row row-cols-2">
-
-                        <div class="col">
-                            <label for="">Date Start</label><br>
-                            <input type="date" id="datestart" name="datestart" placeholder=""><br>
-                        </div>
-
-                        <div class="col">
-                            <label for="">Date Ends</label><br>
-                            <input type="date" id="dateend" name="dateend" placeholder=""><br>
-                        </div>
-
-                    </div>
-                    <input type="submit" name="submit" value="REQUEST">
-
-
                 </div>
-
+                <div class='col'>
+                    <div class='servicerecordform'>
+                    <a href='teacherform.php?recordsearch=" . $foundforms['servicerecordform'] . " '><h2>Service Record Form Download</h2></a>
+                    </div>
+                </div>
+                <div class='col'>
+                    <div class='travelform'>
+                    <a href='teacherform.php?recordsearch=" . $foundforms['travelform'] . " '><h2>Authority To Travel Form Download</h2></a> 
+                    </div>
+                </div>
             </div>
-        </form>
+
+            <div class='row row-cols-5'>
+                <div class='col'>
+                    <div class='enrollsurveyform'>
+                        <a href='teacherform.php?recordsearch=" . $foundforms['learnerenrollmentsurveyform'] . " '>
+                            <h2>Learner Enrollment And Survey Form Download</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-    </div>
+    </div>";
 
-    <?php
+        } ?>
 
-    if (isset($_POST['submit'])) {
-        $document = array(
-            "type" => $_POST['formtype'],
-            "name" => $_POST['name'],
-            "reason" => $_POST['reason'],
-            "datestart" => $_POST['datestart'],
-            "dateend" => $_POST['dateend'],
-            "role" => $_SESSION["sessionaccounttype"]
-        );
-
-        $col->insertOne($document);
-    }
-
-
-
-    ?>
 
 </body>
+
+<?php
+
+if (isset($_GET['recordsearch'])) {
+
+    if (!empty($_GET['recordsearch'])) {
+        $stream = $bucket->openDownloadStreamByName($_GET['recordsearch'], ['revision' => 0]);
+        $contents = stream_get_contents($stream);
+        $pdf = fopen($_GET['recordsearch'], 'w');
+        fwrite($pdf, $contents);
+        fclose($pdf);
+
+        $file = $_GET['recordsearch'];
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($file));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        ob_clean();
+        flush();
+        readfile($file);
+        header("Location: teacherform.php");
+        exit;
+
+
+    }
+
+}
+
+
+
+?>
 
 </html>

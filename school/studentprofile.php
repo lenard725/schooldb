@@ -19,7 +19,7 @@ $col = $db->StudentAccount;
 //echo "Collection StudentAccount Selected";
 $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
 
-?> <!-- initial code for current login info --> 
+?> <!-- initial code for current login info -->
 
 
 <!DOCTYPE html>
@@ -45,15 +45,15 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
 
       <div class="aName">
         <?php echo "<h3>" . $_SESSION["thissessionname"] . "</h3>" ?>
-        <?php echo "<p>" . $_SESSION["thissessionsection"] . "</p>" ?>
+        <?php echo "<p>" . $_SESSION['thissessiongradelevel'] . " - " . $_SESSION["thissessionsection"] . "</p>" ?>
       </div>
     </div>
 
     <a href="./studentprofile.php" class="active">Profile</a>
     <a href="./classenrollment.php">Class Enrollment</a>
-    <a href="./scheduleviewer.html">Schedule Viewer</a>
+    <a href="./scheduleviewer.php">Schedule Viewer</a>
     <a href="./clearance.php">Clearance Information</a>
-    <a href="./grades.html">Grades</a>
+    <a href="./grades.php">Grades</a>
 
     <form action="studentprofile.php" method="post">
       <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -79,7 +79,7 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
             echo "<p>Email: " . $_SESSION["thissessionemail"] . "</p>";
 
             echo "<h2>Emergency Contact: </h2>";
-            
+
             echo "<h3>" . $founduser['guardianname'] . "</h3>";
             echo "<p>Relationship: " . $founduser['relationship'] . "</p>";
             echo "<p>Occupation: " . $founduser['occupation'] . "</p>";

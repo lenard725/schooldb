@@ -37,7 +37,7 @@ $bucket = $db->selectGridFSBucket();
     <title>TBD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/sidenav.css">
+    <link rel="stylesheet" href="../css/sidenav.css?<?php echo time() ?>">
     <link rel="stylesheet" href="./css/accountedit.css?<?php echo time() ?>">
 </head>
 
@@ -50,7 +50,7 @@ $bucket = $db->selectGridFSBucket();
             </div>
 
             <div class="aName">
-                <h1>Name</h1>
+            <h3><?php echo $_SESSION["thissessionname"]; ?></h3>
                 <p>Admin</p>
             </div>
         </div>
@@ -58,8 +58,11 @@ $bucket = $db->selectGridFSBucket();
         <a href="./Employeeprofile.php">Profile</a>
         <a href="./employeeaccount.php" class="active">Accounts</a>
         <a href="./employeeenroll.php">Enroll Students</a>
+        <a href="./employeesection.php">Sections</a>
+        <a href="./employeeaddschedule.php">Class Schedules</a>
+        <a href="./employeeforms.php">Forms</a>
         <a href="./employeerecords.php">Records</a>
-        <a href="">Forms</a>
+
 
         <form action="Employeeprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -94,13 +97,13 @@ $bucket = $db->selectGridFSBucket();
 
 
                                     <label for="">Name</label><br>
-                                    <input type="text" id="" name="name"><br>
+                                    <input type="text" id="" name="name" required><br>
                                     <label for="">Address</label><br>
-                                    <input type="text" id="" name="address"><br>
+                                    <input type="text" id="" name="address" required><br>
                                     <label for="">Email</label><br>
-                                    <input type="email" id="" name="email"><br>
+                                    <input type="email" id="" name="email" required><br>
                                     <label for="">Age</label><br>
-                                    <input type="text" id="" name="age"><br>
+                                    <input type="text" id="" name="age" required><br>
                                     <label for="">Sex</label><br>
                                     <select name="sex">
                                         <option value="Male">Male</option>
@@ -109,7 +112,7 @@ $bucket = $db->selectGridFSBucket();
 
 
                                     <label for="">Password</label><br>
-                                    <input type="password" id="" name="password"><br>
+                                    <input type="password" id="" name="password" required><br>
                                     <label for="">Department</label><br>
 
                                     <?php
@@ -122,10 +125,10 @@ $bucket = $db->selectGridFSBucket();
                                     ?>
 
                                     <label for="">Employee Number</label><br>
-                                    <input type="text" id="" name="enumber"><br>
+                                    <input type="number" id="" name="enumber" required><br>
 
                                     <label for="">Position</label><br>
-                                    <input type="text" id="" name="position"><br>
+                                    <input type="text" id="" name="position" required><br>
 
                                 </div>
                                 <div class="col-md-6">
@@ -151,13 +154,14 @@ $bucket = $db->selectGridFSBucket();
                     </div>
 
                     <div class="row">
-
                         <div class="col">
-                            <input type="submit" name="cancel" value="Cancel">
+                            <input type="submit" name="enroll2" value="Finish">
                         </div>
-                        <div class="col">
-                            <input type="submit" name="enroll2" value="Enroll">
-                        </div>
+                    </div>
+                </form>
+                <form action="addaccount.php" method="POST">
+                    <div class="col">
+                        <input type="submit" name="cancel" value="Cancel">
                     </div>
                 </form>
 
@@ -178,13 +182,13 @@ $bucket = $db->selectGridFSBucket();
 
 
                                     <label for="">Name</label><br>
-                                    <input type="text" id="" name="name"><br>
+                                    <input type="text" id="" name="name" required><br>
                                     <label for="">Address</label><br>
-                                    <input type="text" id="" name="address"><br>
+                                    <input type="text" id="" name="address" required><br>
                                     <label for="">Email</label><br>
-                                    <input type="email" id="" name="email"><br>
+                                    <input type="email" id="" name="email" required><br>
                                     <label for="">Age</label><br>
-                                    <input type="text" id="" name="age"><br>
+                                    <input type="text" id="" name="age" required><br>
                                     <label for="">Sex</label><br>
                                     <select name="sex">
                                         <option value="Male">Male</option>
@@ -202,8 +206,8 @@ $bucket = $db->selectGridFSBucket();
                                     ?>
 
                                     <label for="">LRN</label><br>
-                                    <input type="text" id="" name="lrn"><br>
-                                    <label for="">Password</label><br>
+                                    <input type="number" id="" name="lrn" required><br>
+                                    <label for="">Password</label required><br>
                                     <input type="password" id="" name="password"><br>
 
                                 </div>
@@ -211,15 +215,15 @@ $bucket = $db->selectGridFSBucket();
 
                                     <h2>Emergency Contact</h2>
                                     <label for="">Guardian's Name</label><br>
-                                    <input type="text" id="" name="guardianname"><br>
+                                    <input type="text" id="" name="guardianname" required><br>
                                     <label for="">Email</label><br>
-                                    <input type="text" id="" name="guardianemail"><br>
+                                    <input type="text" id="" name="guardianemail" required><br>
                                     <label for="">Contact Number</label><br>
-                                    <input type="text" id="" name="Telephone/Cellphone"><br>
+                                    <input type="text" id="" name="Telephone/Cellphone" required><br>
                                     <label for="">Occupation</label><br>
                                     <input type="text" id="" name="occupation"><br>
                                     <label for="">Relationship</label><br>
-                                    <input type="text" id="" name="relationship"><br>
+                                    <input type="text" id="" name="relationship" required><br>
                                     <br>
                                     <br>
                                     <input type="checkbox" name="4PS" value="">
@@ -257,11 +261,13 @@ $bucket = $db->selectGridFSBucket();
                     <div class="row">
 
                         <div class="col">
-                            <input type="submit" name="cancel" value="Cancel">
+                            <input type="submit" name="enroll" value="Finish">
                         </div>
-                        <div class="col">
-                            <input type="submit" name="enroll" value="Enroll">
-                        </div>
+                    </div>
+                </form>
+                <form action="addaccount.php" method="POST">
+                    <div class="col">
+                        <input type="submit" name="cancel" value="Cancel">
                     </div>
                 </form>
 
@@ -273,21 +279,23 @@ $bucket = $db->selectGridFSBucket();
 
         <?php
 
-
+        if (isset($_POST['cancel'])) {
+            echo "<script> window.location.href='employeeaccount.php';</script>";
+        }
 
 
 
         if (isset($_POST['enroll'])) {
 
-            $goodmoralname = $_POST['lrn'] . "-goodmoral-" . time();
+            $goodmoralname = $_POST['lrn'] . "-goodmoral-" . date("Y-m-d") . "-" . time();
             $extension = pathinfo($_FILES["goodmoral"]["name"], PATHINFO_EXTENSION);
             $goodmoralnewname = $goodmoralname . "." . $extension;
 
-            $form138name = $_POST['lrn'] . "-form138-" . time();
+            $form138name = $_POST['lrn'] . "-form138-" . date("Y-m-d") . "-" . time();
             $extension = pathinfo($_FILES["form138"]["name"], PATHINFO_EXTENSION);
             $form138newname = $form138name . "." . $extension;
 
-            $bcertificatename = $_POST['lrn'] . "-birthcertificate-" . time();
+            $bcertificatename = $_POST['lrn'] . "-birthcertificate-" . date("Y-m-d") . "-" . time();
             $extension = pathinfo($_FILES["bcertificate"]["name"], PATHINFO_EXTENSION);
             $bcertificatenewname = $bcertificatename . "." . $extension;
 
@@ -324,6 +332,8 @@ $bucket = $db->selectGridFSBucket();
 
                 'studenttype' => $_POST['studenttype'],
                 "name" => $_POST['name'],
+
+                'section' => "",
                 'Address' => $_POST['address'],
                 'email' => $_POST['email'],
                 'age' => $_POST['age'],
@@ -343,7 +353,45 @@ $bucket = $db->selectGridFSBucket();
                 'MTCC' => $MTCC,
                 'role' => "student",
                 'status' => 'Enrolled',
-                'password' => $_POST['password']
+                'password' => $_POST['password'],
+
+
+                'math' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
+                'filipino' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
+                'science' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
+                'english' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
+                'araling_panlipunan' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
+                'ESP' => array(
+                    'first_grading' => '',
+                    'second_grading' => '',
+                    'third_grading' => '',
+                    'fourth_grading' => '',
+                ),
             );
 
             $col->insertOne($document);
@@ -391,7 +439,9 @@ $bucket = $db->selectGridFSBucket();
                 'occupation' => $_POST['occupation'],
                 'relationship' => $_POST['relationship'],
                 'role' => "teacher",
-                'status' => "Employed"
+                'status' => "Employed",
+
+
             );
 
             $col2->insertOne($document);

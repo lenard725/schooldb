@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require '../../vendor/autoload.php';
 
 // connect to mongodb
@@ -29,7 +31,7 @@ $sectionscount = $col->countDocuments();
     <title>TBD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/sidenav.css">
+    <link rel="stylesheet" href="../css/sidenav.css?<?php echo time() ?>">
     <link rel="stylesheet" href="./css/employeesection.css?<?php echo time() ?>">
 </head>
 
@@ -42,7 +44,7 @@ $sectionscount = $col->countDocuments();
             </div>
 
             <div class="aName">
-                <h1>Name</h1>
+                <h3><?php echo $_SESSION["thissessionname"]; ?></h3>
                 <p>Admin</p>
             </div>
         </div>
@@ -50,8 +52,10 @@ $sectionscount = $col->countDocuments();
         <a href="./Employeeprofile.php">Profile</a>
         <a href="./employeeaccount.php">Accounts</a>
         <a href="./employeeenroll.php">Enroll Students</a>
-        <a href="./employeerecords.html">Records</a>
-        <a href="./employeeforms.html">Forms</a>
+        <a href="./employeesection.php" class="active">Sections</a>
+        <a href="./employeeaddschedule.php">Class Schedules</a>
+        <a href="./employeeforms.php">Forms</a>
+        <a href="./employeerecords.php">Records</a>
 
         <form action="Employeeprofile.php" method="post">
             <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -106,23 +110,29 @@ $sectionscount = $col->countDocuments();
                                 if (isset($_POST['gradelevel']) && $_POST['gradelevel'] != "All") {
                                     if ($section['gradelevel'] == $_POST['gradelevel']) {
                                         echo "<tr>";
-                                        echo "<th></th>";
+                                        echo "<th><input type='checkbox' name='sectionnumber[]' value='" . $section['sectionnumber'] . "'></th>";
                                         echo "<th scope='row'><input type='text' name='sectionname[]' value='{$section['sectionname']}'></th>";
                                         echo "<td>{$section['gradelevel']}</td>";
                                         echo "<td><input type='text' name='adviser[]' value='{$section['adviser']}'></td>";
+
+                                        echo "<input type='hidden' name='thissectionnumber[]' value='" . $section['sectionnumber'] . "'>";
+
                                         echo "</tr>";
 
-                                        echo "<input type='hidden' name='sectionnumber[]' value='{$section['sectionnumber']}'>";
+                                        
                                     }
                                 } else {
                                     echo "<tr>";
-                                    echo "<th></th>";
+                                    echo "<th><input type='checkbox' name='sectionnumber[]' value='" . $section['sectionnumber'] . "'></th>";
                                     echo "<th scope='row'><input type='text' name='sectionname[]' value='{$section['sectionname']}'></th>";
                                     echo "<td>{$section['gradelevel']}</td>";
                                     echo "<td><input type='text' name='adviser[]' value='{$section['adviser']}'></td>";
+
+                                    echo "<input type='hidden' name='thissectionnumber[]' value='" . $section['sectionnumber'] . "'>";
+
                                     echo "</tr>";
 
-                                    echo "<input type='hidden' name='sectionnumber[]' value='{$section['sectionnumber']}'>";
+                                    
                                 }
 
                             } else {
@@ -143,6 +153,7 @@ $sectionscount = $col->countDocuments();
                 </table>
 
                 <div class="btnset">
+                <input type="submit" name="deletesection" id="deletesectionbtn" value="Delete Section">
                     <input type="submit" name="addsection" id="addsectionbtn" value="Add Section">
                     <input type="submit" name="savetable" id="savebtn" value="Save">
                 </div>
@@ -158,7 +169,7 @@ if (isset($_POST['addsection'])) {
     if ($_POST['gradelevel'] != "All") {
 
         $document = array(
-            "sectionnumber" => $sectionscount + 1,
+            "sectionnumber" => date("Y/m/d") . "-" . time(),
             "sectionname" => "",
             "gradelevel" => $_POST['gradelevel'],
             "adviser" => ""
@@ -175,14 +186,14 @@ if (isset($_POST['addsection'])) {
 
 if (isset($_POST['savetable'])) {
 
-    $sectionnumber = $_POST['sectionnumber'];
+    $sectionnumber = $_POST['thissectionnumber'];
     $sectionname = $_POST['sectionname'];
     $adviser = $_POST['adviser'];
 
-    foreach ($_POST['sectionnumber'] as $x => $number) {
+    foreach ($_POST['thissectionnumber'] as $x => $number) {
 
         $updatethis = $col->updateOne(
-            ['sectionnumber' => (int) $number],
+            ['sectionnumber' => $number],
             [
                 '$set' => [
                     "sectionname" => $sectionname[$x],
@@ -194,6 +205,16 @@ if (isset($_POST['savetable'])) {
         );
     }
 
+    echo "<meta http-equiv='refresh' content='0'>";
+}
+
+if(isset($_POST['deletesection'])){
+
+    foreach($_POST['sectionnumber'] as $listofsectionnumber){
+        $deletethis = $col->deleteOne(
+            ['sectionnumber' => $listofsectionnumber]
+        );
+    }
     echo "<meta http-equiv='refresh' content='0'>";
 }
 

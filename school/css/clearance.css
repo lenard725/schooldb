@@ -8,6 +8,10 @@
     margin: auto;
 }
 
+.balancerecord p{
+    font-size: 20px;
+}
+
 .balancerecordclear{
     background: green;
     padding: 10px;

@@ -18,6 +18,8 @@ $col = $db->TeacherAccount;
 //echo "Collection TeacherAccount Selected";
 $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
 
+
+
 ?> <!-- initial code for current login info -->
 
 
@@ -49,10 +51,10 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
     </div>
 
     <a href="./teacherprofile.php" class="active">Profile</a>
-    <a href="./teacherclass.html">Class</a>
-    <a href="./teacherschedule.html">Schedule Viewer</a>
+    <a href="./teacherclass.php">Class</a>
+    <a href="./teacherschedule.php">Schedule Viewer</a>
     <a href="./teacherform.php">Forms</a>
-    <a href="./teacherencode.html">Encode Grade</a>
+    <a href="./teacherencode.php">Encode Grade</a>
 
     <form action="teacherprofile.php" method="post">
       <input id="logoutbutton" type="submit" name="logout" value="Logout Account">
@@ -73,16 +75,17 @@ $finduser = $col->find(array('email' => $_SESSION["thissessionemail"]));
           if ($_SESSION["thissessionemail"] == $founduser['email']) {
 
             echo "<h1 id='teachername'>" . $founduser['name'] . "</h1>";
+            echo "<p><b>Employee Number:</b> " . $founduser['enumber'] . "</p>";
             echo "<p>Email: " . $_SESSION["thissessionemail"] . "</p>";
 
             echo "<h2>Emergency Contact: </h2>";
 
             echo "<h3>" . $founduser['guardianname'] . "</h3>";
-            echo "<p>Relationship: " . $founduser['relationship'] . "</p>";
-            echo "<p>Occupation: " . $founduser['occupation'] . "</p>";
-            echo "<p>Address: " . $founduser['Address'] . "</p>";
-            echo "<p>Telephone/Mobile Number: " . $founduser['Telephone/Cellphone'] . "</p>";
-            echo "<p>Email: " . $founduser['guardianemail'] . "</p>";
+            echo "<p><b>Relationship:</b> " . $founduser['relationship'] . "</p>";
+            echo "<p><b>Occupation:</b> " . $founduser['occupation'] . "</p>";
+            echo "<p><b>Address:</b> " . $founduser['Address'] . "</p>";
+            echo "<p><b>Telephone/Mobile Number:</b> " . $founduser['Telephone/Cellphone'] . "</p>";
+            echo "<p><b>Email:</b> " . $founduser['guardianemail'] . "</p>";
           }
 
         }

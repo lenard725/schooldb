@@ -72,6 +72,12 @@ session_start();
             }
         }
 
+        if (isset($_SESSION['loginerror'])) {
+
+            echo "<script>alert('Invalid Credential')</script>";
+            session_destroy();
+        }
+
 
         if (isset($_POST['submit'])) {
             $con = new MongoDB\Client("mongodb://localhost:27017");
@@ -99,6 +105,7 @@ session_start();
                 if ($postedemail == $storedemail && $postedpassword == $storedpassword) {
 
                     $_SESSION["thissessionemail"] = $postedemail;
+                    $_SESSION["thissessionname"] = $founduser['name'];
                     $_SESSION["sessionaccounttype"] = $_POST['accounttype'];
                     $_SESSION["log2authentication"] = 1;
 
@@ -112,10 +119,12 @@ session_start();
 
 
                 } else {
-                    echo "xdd";
                 }
 
             }
+
+            $_SESSION['loginerror'] = 1;
+            header("Location: login2.php");
 
         }
         ?>

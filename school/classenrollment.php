@@ -48,8 +48,8 @@ $gradelevelselection = array('Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade
             </div>
 
             <div class="aName">
-                <h3>Student Name</h3>
-                <p>Grade Level - Section</p>
+                <?php echo "<h3>" . $_SESSION["thissessionname"] . "</h3>" ?>
+                <?php echo "<p>" . $_SESSION['thissessiongradelevel'] . " - " . $_SESSION["thissessionsection"] . "</p>" ?>
             </div>
         </div>
         <a href="./studentprofile.php">Profile</a>
@@ -108,7 +108,7 @@ $gradelevelselection = array('Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade
                     </form>
 
                 </div>
-            <?php } else { ?>
+            <?php } elseif ($founduser['status'] == 'onProcess') { ?>
                 <div class="onProcess">
                     <p>Thank you for enrolling at our school,<br><br>
 
@@ -116,8 +116,17 @@ $gradelevelselection = array('Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade
 
                         Thank you for your patience.</p>
                 </div>
+            <?php } elseif ($founduser['status'] == 'Enrolled') { ?>
+                <div class="onProcess">
+                    <p>Congratulations,<br><br>
+
+                        You're Officially Enrolled<br><br>
+
+                        Thank you for your patience.</p>
+                </div>
             <?php }
-            } ?>
+            }
+            ?>
     </div>
     </div>
 
@@ -125,7 +134,7 @@ $gradelevelselection = array('Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade
     if (isset($_POST['enroll'])) {
 
 
-        $form138name = $_POST['idnumber'] . "form138-" . time();
+        $form138name = $_POST['idnumber'] . "form138-" . date("Y-m-d") . "-" . time();
         $extension = pathinfo($_FILES["form138"]["name"], PATHINFO_EXTENSION);
         $newname = $form138name . "." . $extension;
 
@@ -144,8 +153,14 @@ $gradelevelselection = array('Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade
             "form138" => $newname
         );
 
-         $col->insertOne($document);
-    
+        $col->insertOne($document);
+
+        $updateResult = $studentcol->updateOne(
+            ['idnumber' => $_SESSION['thissessionidnumber']],
+            ['$set' => ['status' => 'onProcess']]
+
+        );
+
 
         $form138holder = $bucket->openUploadStream($newname);
         $form138contents = file_get_contents($targetDir);
